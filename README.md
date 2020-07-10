@@ -29,10 +29,13 @@ Cli to download base docker setup in a project.
     - You should see a docker folder in your app root now        
 
 #### Option 2: Download from URL
-1) Run 
+1) Run the following script. 
+Replace...
+    -`<root of app>` with the app location
+    -`<name of image tag>` with name of the image tag
 ```
 curl https://raw.githubusercontent.com/scottglenblanch/generate-docker-setup-cli/main/src/cli.sh \
-    | bash --s \ 
+    | bash -s -- \ 
     --app-root <root of app> \ 
     --tag <name of image tag>
 ```
@@ -55,5 +58,3 @@ curl https://raw.githubusercontent.com/scottglenblanch/generate-docker-setup-cli
     - ```
       <app root>/docker/scripts/host/run-container.sh      
       ```
-                 
-### From remote url

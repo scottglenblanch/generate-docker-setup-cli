@@ -2,29 +2,26 @@
 APP_DIR=""
 CONFIG_DIR=""
 CONFIG_PORTS_FILE_LOCATION=""
+PORTS_DOCKER_STRING=""
 SCRIPT_RUNNING_DIR=""
 SHARED_SCRIPTS_DIR=""
 TAG=""
 
-get_ports() {
-  echo "CONFIG_PORTS_FILE_LOCATION ${CONFIG_PORTS_FILE_LOCATION}"
-
+set_ports_docker_string() {
   PORTS_CONFIG="$(cat "${CONFIG_PORTS_FILE_LOCATION}")"
-
-  echo "PORTS_CONFIG ${PORTS_CONFIG}"
 
   IFS='
   '
 
   for PORT in ${PORTS_CONFIG};
   do
-    echo "${PORT}"
+    PORTS_DOCKER_STRING="${PORTS_DOCKER_STRING} -p ${PORT}:${PORT}"
   done
 }
 
 run_container() {
-  get_ports
-  docker run -it -v "${APP_DIR}":/app ${TAG}
+  echo "Running docker run command: docker run -it -v "${APP_DIR}":/app ${PORTS_DOCKER_STRING} ${TAG}"
+  docker run -it -v "${APP_DIR}":/app ${PORTS_DOCKER_STRING} ${TAG}
 }
 
 set_variables() {
@@ -35,6 +32,7 @@ set_variables() {
   CONFIG_DIR="$("${SHARED_SCRIPTS_DIR}/get-config-dir.sh")"
   CONFIG_PORTS_FILE_LOCATION="${CONFIG_DIR}/ports"
   TAG="$("${SHARED_SCRIPTS_DIR}/get-tag-name.sh")"
+  set_ports_docker_string
 }
 
 set_variables

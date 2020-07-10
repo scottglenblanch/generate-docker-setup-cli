@@ -19,6 +19,7 @@ get_ports() {
 }
 
 run_container() {
+  get_ports
   docker run -it -v "${APP_DIR}":/app ${TAG}
 }
 

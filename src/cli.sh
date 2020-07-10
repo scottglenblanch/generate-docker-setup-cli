@@ -67,8 +67,6 @@ set_variables() {
   ZIP_FILE_NAME="downloaded_item.zip"
   ZIP_FILE_LOCATION="${APP_ROOT}/${ZIP_FILE_NAME}"
   ZIP_URL="https://github.com/scottglenblanch/generate-docker-setup-cli/archive/main.zip"
-
-  echo "${UNZIPPED_DOCKER_DIR}"
 }
 
 output_intro

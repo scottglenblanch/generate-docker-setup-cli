@@ -23,6 +23,11 @@ Cli to download base docker setup in a project.
         ```
 2) Run cli to add docker
     - Add docker folder to root of project
+    
+    Replace...
+    - `<root of app>` with the app location
+    - `<name of image tag>` with name of the image tag
+    
         ```
         <root of generate docker setup-cli>/src/cli.sh --app-root <root of project> --tag <name of image tag>
         ````
@@ -30,6 +35,7 @@ Cli to download base docker setup in a project.
 
 #### Option 2: Download from URL
 1) Run the following script. 
+
 Replace...
 
 - `<root of app>` with the app location

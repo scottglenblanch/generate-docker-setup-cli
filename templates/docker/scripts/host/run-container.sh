@@ -1,17 +1,20 @@
 #!/bin/sh
-
+APP_DIR=""
+SCRIPT_RUNNING_DIR=""
+SHARED_SCRIPTS_DIR=""
 TAG=""
 
 run_container() {
-  docker run -it ${TAG}
+  docker run -it -v "${APP_DIR}":/app ${TAG}
 }
 
 set_variables() {
   SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-  # will set TAG if has argument --tag <some value>
-  source /dev/stdin <<< "$(curl https://raw.githubusercontent.com/scottglenblanch/bash-argument-parser/main/src/arg-parser.sh)"
+
+  SHARED_SCRIPTS_DIR="${SCRIPT_RUNNING_DIR}/shared"
+  APP_DIR="$("${SHARED_SCRIPTS_DIR}/get-app-dir.sh")"
+  TAG="$("${SHARED_SCRIPTS_DIR}/get-tag-name.sh")"
 }
 
 set_variables
 run_container
-

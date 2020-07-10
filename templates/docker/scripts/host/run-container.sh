@@ -8,12 +8,12 @@ SHARED_SCRIPTS_DIR=""
 TAG=""
 
 set_ports_docker_string() {
-  PORTS_CONFIG="$(cat "${CONFIG_PORTS_FILE_LOCATION}")"
+  PORTS_CONFIG_FILE_CONTENTS="$(cat "${CONFIG_PORTS_FILE_LOCATION}")"
 
   IFS='
   '
 
-  for PORT in ${PORTS_CONFIG};
+  for PORT in ${PORTS_CONFIG_FILE_CONTENTS};
   do
     PORTS_DOCKER_STRING="${PORTS_DOCKER_STRING} -p ${PORT}:${PORT}"
   done

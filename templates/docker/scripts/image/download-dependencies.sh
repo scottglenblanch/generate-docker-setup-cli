@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT_RUNNING_DIR=""
 
 download_dependencies() {
-  echo "No dependencies to download"
+  apk add bash
 }
 
 output_message() {

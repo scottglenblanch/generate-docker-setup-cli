@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 APP_DIR=""
 CONFIG_DIR=""
 CONFIG_PORTS_FILE_LOCATION=""

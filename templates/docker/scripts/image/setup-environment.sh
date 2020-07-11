@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 delete_image_scripts() {
   rm -rf /scripts/image

@@ -2,11 +2,12 @@
 
 SCRIPT_RUNNING_DIR=""
 
-delete_image_scripts() {
-  rm -rf /scripts/image
-}
 download_dependencies() {
   "${SCRIPT_RUNNING_DIR}/download-dependencies.sh"
+}
+
+setup_environment() {
+  "${SCRIPT_RUNNING_DIR}/setup-environment.sh"
 }
 
 output_message() {
@@ -21,4 +22,4 @@ set_variables() {
 set_variables
 output_message
 download_dependencies
-delete_image_scripts
+setup_environment

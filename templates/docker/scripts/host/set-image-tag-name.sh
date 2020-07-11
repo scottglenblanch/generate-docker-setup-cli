@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CONFIG_DIR=""
 CONFIG_FILE_LOCATION=""

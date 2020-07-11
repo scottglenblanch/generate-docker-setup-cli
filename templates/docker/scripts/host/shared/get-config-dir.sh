@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 SCRIPT_RUNNING_DIR=""
 DOCKER_DIR=""

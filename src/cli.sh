@@ -1,10 +1,12 @@
 #!/bin/sh
 APP_ROOT=""
-SCRIPT_RUNNING_DIR=""
+IMAGE=""
 TAG=""
+
 UNZIPPED_NAME=""
 UNZIPPED_DIR=""
 UNZIPPED_DOCKER_DIR=""
+
 ZIP_FILE_LOCATION=""
 ZIP_FILE_NAME=""
 ZIP_URL=""
@@ -54,29 +56,55 @@ output_intro() {
 }
 
 set_variables() {
-  SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+  set_variables_from_arguments() {
+    set_variables_from_bash_parser() {
+      BASH_ARGUMENT_PARSER_URL='https://raw.githubusercontent.com/scottglenblanch/bash-argument-parser/main/src/arg-parser.sh'
 
-  # APP_ROOT from --app-root
-  # TAG from --tag
-  source /dev/stdin <<< "$(curl https://raw.githubusercontent.com/scottglenblanch/bash-argument-parser/main/src/arg-parser.sh)"
+      source /dev/stdin <<< "$(curl "${BASH_ARGUMENT_PARSER_URL}")"
+    }
 
-  UNZIPPED_NAME="generate-docker-setup-cli-main"
-  UNZIPPED_DIR="${APP_ROOT}/${UNZIPPED_NAME}"
-  UNZIPPED_DOCKER_DIR="${UNZIPPED_DIR}/templates/docker"
+    set_variables_to_default_if_not_set() {
+      set_variable_app_root_default() {
+        APP_ROOT="$(pwd)"
+      }
 
-  ZIP_FILE_NAME="downloaded_item.zip"
-  ZIP_FILE_LOCATION="${APP_ROOT}/${ZIP_FILE_NAME}"
-  ZIP_URL="https://github.com/scottglenblanch/generate-docker-setup-cli/archive/main.zip"
+      set_variable_image_default() {
+        IMAGE='alpine'
+      }
+
+      set_variable_tag_default() {
+        TAG='tag1'
+      }
+
+      [ -z "${APP_ROOT}" ] && set_variable_app_root_default
+      [ -z "${IMAGE}" ] && set_variable_image_default
+      [ -z "${TAG}" ] && set_variable_tag_default
+    }
+
+    set_variables_from_bash_parser
+    set_variables_to_default_if_not_set
+  }
+
+  set_unzipped_variables() {
+    UNZIPPED_NAME="generate-docker-setup-cli-main"
+    UNZIPPED_DIR="${APP_ROOT}/${UNZIPPED_NAME}"
+    UNZIPPED_DOCKER_DIR="${UNZIPPED_DIR}/templates/docker"
+  }
+
+  set_zipped_variables() {
+    ZIP_FILE_NAME="downloaded_item.zip"
+    ZIP_FILE_LOCATION="${APP_ROOT}/${ZIP_FILE_NAME}"
+    ZIP_URL="https://github.com/scottglenblanch/generate-docker-setup-cli/archive/main.zip"
+  }
+
+  set_variables_from_arguments
+	set_unzipped_variables
+  set_zipped_variables
 }
 
 output_intro
 set_variables $@
+create_docker_setup_in_app_root
+create_tag_config
 
-if [[ "$(is_not_valid)" = "true" ]];
-then
-  echo "need arguments --app-root, --tag"
-else
-  create_docker_setup_in_app_root
-  create_tag_config
-fi
 

@@ -1,10 +1,10 @@
 #!/bin/bash
-
+APP_DIR=""
+BASE_IMAGE=""
+CONFIG_DIR=""
+DOCKER_DIR=""
 SCRIPT_RUNNING_DIR=""
 SHARED_SCRIPTS_DIR=""
-CONFIG_DIR=""
-APP_DIR=""
-DOCKER_DIR=""
 TAG=""
 
 output_intro_message() {
@@ -12,24 +12,59 @@ output_intro_message() {
 }
 
 output_variables_message() {
-  echo "SCRIPT_RUNNING_DIR is ${SCRIPT_RUNNING_DIR}"
   echo "APP_DIR is ${APP_DIR}"
+  echo "BASE_IMAGE is ${BASE_IMAGE}"
   echo "CONFIG_DIR is ${CONFIG_DIR}"
   echo "DOCKER_DIR is ${DOCKER_DIR}"
+  echo "SCRIPT_RUNNING_DIR is ${SCRIPT_RUNNING_DIR}"
   echo "TAG is ${TAG}"
 }
 
 run_build() {
-  docker build --tag "${TAG}" -f "${DOCKER_DIR}/Dockerfile" "${APP_DIR}"
+  docker build \
+    --tag "${TAG}" \
+    -f "${DOCKER_DIR}/Dockerfile" \
+    --build-arg BASE_IMAGE="${BASE_IMAGE}" \
+    "${APP_DIR}"
 }
 
 set_variables() {
-  SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-  SHARED_SCRIPTS_DIR="${SCRIPT_RUNNING_DIR}/shared"
-  APP_DIR="$("${SHARED_SCRIPTS_DIR}/get-app-dir.sh")"
-  CONFIG_DIR="$("${SHARED_SCRIPTS_DIR}/get-config-dir.sh")"
-  DOCKER_DIR="${APP_DIR}/docker"
-  TAG="$("${SHARED_SCRIPTS_DIR}/get-tag-name.sh")"
+  set_app_dir() {
+    APP_DIR="$("${SHARED_SCRIPTS_DIR}/get-app-dir.sh")"
+  }
+
+  set_base_image() {
+    BASE_IMAGE="$("${SHARED_SCRIPTS_DIR}/get-base-image-name.sh")"
+  }
+
+  set_config_dir() {
+    CONFIG_DIR="$("${SHARED_SCRIPTS_DIR}/get-config-dir.sh")"
+  }
+
+  set_docker_dir() {
+    DOCKER_DIR="${APP_DIR}/docker"
+  }
+
+  set_script_running_dir() {
+    SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+  }
+
+  set_shared_scripts_dir() {
+    SHARED_SCRIPTS_DIR="${SCRIPT_RUNNING_DIR}/shared"
+  }
+
+  set_tag() {
+    TAG="$("${SHARED_SCRIPTS_DIR}/get-tag-name.sh")"
+  }
+
+  set_script_running_dir
+  set_shared_scripts_dir
+
+  set_app_dir
+  set_base_image
+  set_config_dir
+  set_docker_dir
+  set_tag
 }
 
 output_intro_message

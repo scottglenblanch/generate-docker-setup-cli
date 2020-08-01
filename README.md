@@ -22,7 +22,7 @@ curl "${SCRIPT_URL}" | bash -s -- --app-root "${APP_ROOT}" --image "${IMAGE}" --
 1) Add Code to Download Dependencies needed
 - Edit file `docker/scripts/image/download-dependencies.sh`
 2) Add run command to start app
-- Edit file `<app root>/docker/scripts/container/start-app.sh`
+- Edit file `docker/scripts/container/start-app.sh`
 - Note: location of app in container instance is `/app`
 3) Build image for project
 ```

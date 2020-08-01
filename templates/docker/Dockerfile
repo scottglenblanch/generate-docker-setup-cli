@@ -1,4 +1,6 @@
-FROM alpine
+ARG BASE_IMAGE
+
+FROM $BASE_IMAGE
 
 COPY ./docker/scripts/image /scripts/image
 COPY ./docker/scripts/container /scripts/container

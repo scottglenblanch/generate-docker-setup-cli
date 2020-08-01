@@ -25,12 +25,12 @@ set_variables() {
   }
 
   set_variables_from_terminal_input() {
-    source "${SHARED_SCRIPTS_DIR}/parse-args.sh"
+    source "${SHARED_SCRIPTS_DIR}/parse-args.sh" $@
   }
 
-  set_shared_scripts_variable
-  set_variables_from_terminal_input
-  set_config_variables
+  set_shared_scripts_variable $@
+  set_variables_from_terminal_input $@
+  set_config_variables $@
 }
 
 set_variables $@

@@ -5,7 +5,7 @@ Cli to download base docker setup in a project.
 ## Create Docker Setup in Application
 
 
-### Run with Default
+### Run with Default Setup
 ```
 curl https://raw.githubusercontent.com/scottglenblanch/generate-docker-setup-cli/main/src/cli.sh | bash
 ```

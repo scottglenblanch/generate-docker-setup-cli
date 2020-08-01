@@ -34,7 +34,11 @@ handle_input() {
   }
 
   handle_no_input_arguments() {
-    echo 'Arguments: --create-image, --run-container, --set-image-name <image name>, --set-tag-name <tag name> '
+    echo 'Arguments: --create-image, --run-container, --set-image-name <image name>, --set-tag-name <tag name>'
+    echo '--create-image will create/build the Docker image for you'
+    echo '--run-container will start everything in a container for you'
+    echo '--set-image-name <image name to insert> will set the base Docker image'
+    echo '--set-tag-name <tag name to use> will set the image tag name for the application'
   }
 
   handle_run_container_request() {

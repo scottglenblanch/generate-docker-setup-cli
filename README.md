@@ -5,8 +5,21 @@ Cli to download base docker setup in a project.
 ## Create Docker Setup in Application
 
 
-#### Run Script
+### Run with Default
+```
+curl https://raw.githubusercontent.com/scottglenblanch/generate-docker-setup-cli/main/src/cli.sh | bash
+```
 
+### Run With Options
+Optional Parameters
+- --app-root
+    - default: pwd, aka current directory
+- --image
+    - default: alpine
+- --tag
+    - default: image-tag-$(date +%s)
+
+Run with any or all optional parameters.
 ```
 #!/bin/bash
 

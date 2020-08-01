@@ -73,7 +73,7 @@ set_variables() {
       }
 
       set_variable_tag_default() {
-        TAG='tag1'
+        TAG="image-tag-$(date +%s)"
       }
 
       [ -z "${APP_ROOT}" ] && set_variable_app_root_default

@@ -51,14 +51,14 @@ handleInput() {
     "${DOCKER_DIR}/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
   }
 
-  if [[ -n "${CREATE_IMAGE}" ]];
+  if [ "${CREATE_IMAGE}" != "" ]
   then
     handle_create_image_request
-  elif [[ -n "${RUN_CONTAINER}" ]];
+  elif [ -n "${RUN_CONTAINER}" != "" ]
     handle_run_container_request
-  elif [[ -n "${SET_IMAGE_NAME}" ]];
+  elif [ -n "${SET_IMAGE_NAME}" != "" ]
     handle_set_image_name_request
-  elif [[ -n "${SET_TAG_NAME}" ]];
+  elif [ "${SET_TAG_NAME}" != "" ];
     handle_set_container_tag_name_request
   else
     handle_no_input_arguments

@@ -27,6 +27,11 @@ create_docker_setup_in_app_root() {
     mv "${UNZIPPED_DOCKER_DIR}" "${APP_ROOT}"
   }
 
+  move_docker_cli_file_to_app_root() {
+    DOCKER_CLI_FILE_LOCATION="${APP_ROOT}/docker/docker-cli.sh"
+    mv "${DOCKER_CLI_FILE_LOCATION}" ${APP_ROOT}
+  }
+
   unzip_zip_file() {
     cd "${APP_ROOT}"
     tar -xvf "${ZIP_FILE_NAME}"
@@ -35,11 +40,16 @@ create_docker_setup_in_app_root() {
   download_zip
   unzip_zip_file
   move_docker_template_to_app_root
+  move_docker_cli_file_to_app_root
   clean_up_zip
 }
 
+create_base_image_config() {
+  "${APP_ROOT}/docker/scripts/host/set-base-image-name.sh" --image "${IMAGE}"
+}
+
 create_tag_config() {
-  "${APP_ROOT}/docker/scripts/host/set-image-tag-name.sh" --tag "${TAG}"
+  "${APP_ROOT}/docker/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
 }
 
 is_not_valid() {
@@ -105,6 +115,7 @@ set_variables() {
 output_intro
 set_variables $@
 create_docker_setup_in_app_root
+create_base_image_config
 create_tag_config
 
 

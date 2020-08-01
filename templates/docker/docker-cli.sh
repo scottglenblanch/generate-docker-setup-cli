@@ -28,7 +28,7 @@ set_variables() {
   set_from_arguments $@
 }
 
-handleInput() {
+handle_input() {
   handle_create_image_request() {
     "${DOCKER_DIR}/scripts/host/create-image.sh"
   }

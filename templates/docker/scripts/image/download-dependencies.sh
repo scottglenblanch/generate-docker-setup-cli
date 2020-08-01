@@ -1,9 +1,12 @@
 #!/bin/sh
 
+CUSTOM_SCRIPTS_DIR=""
 SCRIPT_RUNNING_DIR=""
+
 
 download_dependencies() {
   apk add bash
+  "${CUSTOM_SCRIPTS_DIR}/download-dependencies.sh"
 }
 
 output_message() {
@@ -12,6 +15,7 @@ output_message() {
 }
 
 set_variables() {
+  CUSTOM_SCRIPTS_DIR="/scripts/custom-scripts"
   SCRIPT_RUNNING_DIR="/scripts/image"
 }
 

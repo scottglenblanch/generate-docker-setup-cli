@@ -41,7 +41,7 @@ set_variables() {
 
 handle_input() {
   handle_create_image_request() {
-    "${DOCKER_DIR}/scripts/host/create-image.sh"
+    "${HOST_SCRIPTS_DIR}/create-image.sh"
   }
 
   handle_no_input_arguments() {
@@ -53,7 +53,7 @@ handle_input() {
   }
 
   handle_run_container_request() {
-    "${DOCKER_DIR}/scripts/host/run-container.sh"
+    "${HOST_SCRIPTS_DIR}/run-container.sh"
   }
 
   handle_set_image_name_request() {

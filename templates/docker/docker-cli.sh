@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP_ROOT_DIR=""
+BASE_SCRIPTS_DIR=""
 DOCKER_DIR=""
 
 CREATE_IMAGE=""
@@ -14,6 +15,10 @@ set_variables() {
     APP_ROOT_DIR="${SCRIPT_RUNNING_DIR}"
   }
 
+  set_base_scripts_dir() {
+    BASE_SCRIPTS_DIR="${DOCKER_DIR}/base-scripts"
+  }
+
   set_docker_dir() {
     DOCKER_DIR="${APP_ROOT_DIR}/docker"
   }
@@ -25,6 +30,7 @@ set_variables() {
 
   set_app_root_dir
   set_docker_dir
+  set_base_scripts_dir
   set_from_arguments $@
 }
 
@@ -47,12 +53,12 @@ handle_input() {
 
   handle_set_image_name_request() {
     IMAGE="${SET_IMAGE_NAME}"
-    "${DOCKER_DIR}/custom-scripts/set-base-image-name.sh" --image "${IMAGE}"
+    "${DOCKER_DIR}/scripts/host/set-base-image-name.sh" --image "${IMAGE}"
   }
 
   handle_set_container_tag_name_request() {
     TAG="${SET_TAG_NAME}"
-    "${DOCKER_DIR}/custom-scripts/set-container-tag-name.sh" --tag "${TAG}"
+    "${DOCKER_DIR}/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
   }
 
   if [ "${CREATE_IMAGE}" != "" ];

@@ -2,9 +2,9 @@ ARG BASE_IMAGE
 
 FROM $BASE_IMAGE
 
-COPY ./docker/scripts/image /scripts/image
-COPY ./docker/scripts/container /scripts/container
-COPY ./docker/scripts/custom-scripts /scripts/custom-scripts
+COPY ./base-scripts/image /scripts/image
+COPY ./base-scripts/container /scripts/container
+COPY ./docker/custom-scripts /scripts/custom-scripts
 
 RUN /scripts/image/run-in-build-step.sh
 

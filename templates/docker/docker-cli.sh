@@ -25,6 +25,7 @@ set_variables() {
       DOCKER_DIR="${APP_ROOT_DIR}/docker"
     }
 
+
     set_hosts_dir() {
       HOST_SCRIPTS_DIR="${BASE_SCRIPTS_DIR}/host"
     }

@@ -3,6 +3,10 @@ APP_ROOT=""
 IMAGE=""
 TAG=""
 
+DOCKER_DIR=""
+BASE_SCRIPTS_DIR=""
+HOST_SCRIPTS_DIR=""
+
 UNZIPPED_NAME=""
 UNZIPPED_DIR=""
 UNZIPPED_DOCKER_DIR=""
@@ -45,11 +49,11 @@ create_docker_setup_in_app_root() {
 }
 
 create_base_image_config() {
-  "${APP_ROOT}/docker/scripts/host/set-base-image-name.sh" --image "${IMAGE}"
+  "${HOST_SCRIPTS_DIR}/set-base-image-name.sh" --image "${IMAGE}"
 }
 
 create_tag_config() {
-  "${APP_ROOT}/docker/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
+  "${HOST_SCRIPTS_DIR}/set-container-tag-name.sh" --tag "${TAG}"
 }
 
 is_not_valid() {
@@ -66,6 +70,12 @@ output_intro() {
 }
 
 set_variables() {
+  set_directory_arguments() {
+    DOCKER_DIR="${APP_ROOT}/docker"
+    BASE_SCRIPTS_DIR="${DOCKER_DIR}/base-scripts"
+    HOST_SCRIPTS_DIR="${BASE_SCRIPTS_DIR}/host"
+  }
+
   set_variables_from_arguments() {
     set_variables_from_bash_parser() {
       BASH_ARGUMENT_PARSER_URL='https://raw.githubusercontent.com/scottglenblanch/bash-argument-parser/main/src/arg-parser.sh'
@@ -108,6 +118,7 @@ set_variables() {
   }
 
   set_variables_from_arguments
+  set_directory_arguments
 	set_unzipped_variables
   set_zipped_variables
 }

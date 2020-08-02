@@ -47,12 +47,12 @@ handle_input() {
 
   handle_set_image_name_request() {
     IMAGE="${SET_IMAGE_NAME}"
-    "${DOCKER_DIR}/scripts/host/set-base-image-name.sh" --image "${IMAGE}"
+    "${DOCKER_DIR}/custom-scripts/set-base-image-name.sh" --image "${IMAGE}"
   }
 
   handle_set_container_tag_name_request() {
     TAG="${SET_TAG_NAME}"
-    "${DOCKER_DIR}/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
+    "${DOCKER_DIR}/custom-scripts/set-container-tag-name.sh" --tag "${TAG}"
   }
 
   if [ "${CREATE_IMAGE}" != "" ];

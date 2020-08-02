@@ -3,6 +3,7 @@
 APP_ROOT_DIR=""
 BASE_SCRIPTS_DIR=""
 DOCKER_DIR=""
+HOST_SCRIPTS_DIR=""
 
 CREATE_IMAGE=""
 RUN_CONTAINER=""
@@ -26,6 +27,10 @@ set_variables() {
   set_from_arguments() {
     ARGUMENT_PARSER_SCRIPT_URL="https://raw.githubusercontent.com/scottglenblanch/bash-argument-parser/main/src/arg-parser.sh"
     source /dev/stdin <<< "$(curl "${ARGUMENT_PARSER_SCRIPT_URL}")"
+  }
+
+  set_hosts_dir() {
+    HOST_SCRIPTS_DIR="${BASE_SCRIPTS_DIR}/host"
   }
 
   set_app_root_dir
@@ -53,12 +58,12 @@ handle_input() {
 
   handle_set_image_name_request() {
     IMAGE="${SET_IMAGE_NAME}"
-    "${DOCKER_DIR}/scripts/host/set-base-image-name.sh" --image "${IMAGE}"
+    "${HOST_SCRIPTS_DIR}/set-base-image-name.sh" --image "${IMAGE}"
   }
 
   handle_set_container_tag_name_request() {
     TAG="${SET_TAG_NAME}"
-    "${DOCKER_DIR}/scripts/host/set-container-tag-name.sh" --tag "${TAG}"
+    "${HOST_SCRIPTS_DIR}/set-container-tag-name.sh" --tag "${TAG}"
   }
 
   if [ "${CREATE_IMAGE}" != "" ];

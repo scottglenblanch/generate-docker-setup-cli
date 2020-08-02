@@ -11,17 +11,28 @@ SET_IMAGE_NAME=""
 SET_TAG_NAME=""
 
 set_variables() {
-  set_app_root_dir() {
-    SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-    APP_ROOT_DIR="${SCRIPT_RUNNING_DIR}"
-  }
+  set_directory_variables() {
+    set_app_root_dir() {
+      SCRIPT_RUNNING_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+      APP_ROOT_DIR="${SCRIPT_RUNNING_DIR}"
+    }
 
-  set_base_scripts_dir() {
-    BASE_SCRIPTS_DIR="${DOCKER_DIR}/base-scripts"
-  }
+    set_base_scripts_dir() {
+      BASE_SCRIPTS_DIR="${DOCKER_DIR}/base-scripts"
+    }
 
-  set_docker_dir() {
-    DOCKER_DIR="${APP_ROOT_DIR}/docker"
+    set_docker_dir() {
+      DOCKER_DIR="${APP_ROOT_DIR}/docker"
+    }
+
+    set_hosts_dir() {
+      HOST_SCRIPTS_DIR="${BASE_SCRIPTS_DIR}/host"
+    }
+
+    set_app_root_dir
+    set_docker_dir
+    set_base_scripts_dir
+    set_hosts_dir
   }
 
   set_from_arguments() {
@@ -29,13 +40,7 @@ set_variables() {
     source /dev/stdin <<< "$(curl "${ARGUMENT_PARSER_SCRIPT_URL}")"
   }
 
-  set_hosts_dir() {
-    HOST_SCRIPTS_DIR="${BASE_SCRIPTS_DIR}/host"
-  }
-
-  set_app_root_dir
-  set_docker_dir
-  set_base_scripts_dir
+  set_directory_variables
   set_from_arguments $@
 }
 

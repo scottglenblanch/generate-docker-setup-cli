@@ -119,7 +119,7 @@ set_variables() {
 
   set_variables_from_arguments
   set_directory_arguments
-	set_unzipped_variables
+  set_unzipped_variables
   set_zipped_variables
 }
 
